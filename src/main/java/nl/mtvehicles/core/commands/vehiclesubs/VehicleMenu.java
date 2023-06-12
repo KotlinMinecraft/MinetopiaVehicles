@@ -41,7 +41,8 @@ public class VehicleMenu extends MTVSubCommand {
             int itemDamage = (Integer) vehicle.get("itemDamage");
             String name = (String) vehicle.get("name");
             String skinItem = (String) vehicle.get("skinItem");
-            ItemStack itemStack = ItemUtils.getMenuVehicle(ItemUtils.getMaterial(skinItem), itemDamage, name);
+            String oraxenItem = (String) vehicle.get("oraxenItem");
+            ItemStack itemStack = ItemUtils.getMenuVehicle(ItemUtils.getMaterial(skinItem), itemDamage, name, oraxenItem);
 
             if (vehicle.get("nbtValue") == null) {
                 inv.addItem(itemStack);

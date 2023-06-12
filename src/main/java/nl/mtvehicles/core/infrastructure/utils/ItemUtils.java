@@ -63,14 +63,21 @@ public class ItemUtils {
     /**
      * Get item used in vehicle menu. Updated method (used to be #carItem(...)).
      */
-    public static ItemStack getMenuVehicle(@NotNull Material material, int durability, String name){
+    public static ItemStack getMenuVehicle(@NotNull Material material, int durability, String name, @Nullable String oraxenItem){
         if (!material.isItem()) return null;
-        ItemStack vehicle = (new ItemFactory(material))
+        ItemFactory builder = (new ItemFactory(material))
                 .setName(TextUtils.colorize("&6" + name))
                 .setDurability(durability)
                 .setUnbreakable(true)
-                .setLore("&a")
-                .toItemStack();
+                .setLore("&a");
+
+        if(oraxenItem != null) {
+            int modelData = OraxenItems.getItemById(oraxenItem).build().getItemMeta().getCustomModelData();
+            builder.setCustomModelData(modelData);
+            builder.setNBT("mtvehicles.oraxenItem", oraxenItem);
+        }
+
+        ItemStack vehicle = builder.toItemStack();
         return vehicle;
     }
 
@@ -89,10 +96,9 @@ public class ItemUtils {
                 .setUnbreakable(true);
 
         if(oraxenItem != null) {
-            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
-            if(modelData != null) {
-                builder.setCustomModelData(modelData.getModelData());
-            }
+            int modelData = OraxenItems.getItemById(oraxenItem).build().getItemMeta().getCustomModelData();
+            builder.setCustomModelData(modelData);
+            builder.setNBT("mtvehicles.oraxenItem", oraxenItem);
         }
 
         ItemStack vehicle = builder.toItemStack();
@@ -119,10 +125,9 @@ public class ItemUtils {
                 .setUnbreakable(true);
 
         if(oraxenItem != null) {
-            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
-            if(modelData != null) {
-                builder.setCustomModelData(modelData.getModelData());
-            }
+            int modelData = OraxenItems.getItemById(oraxenItem).build().getItemMeta().getCustomModelData();
+            builder.setCustomModelData(modelData);
+            builder.setNBT("mtvehicles.oraxenItem", oraxenItem);
         }
 
         ItemStack vehicle = builder.toItemStack();
@@ -144,10 +149,9 @@ public class ItemUtils {
                 .setUnbreakable(true);
 
         if(oraxenItem != null) {
-            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
-            if(modelData != null) {
-                builder.setCustomModelData(modelData.getModelData());
-            }
+            int modelData = OraxenItems.getItemById(oraxenItem).build().getItemMeta().getCustomModelData();
+            builder.setCustomModelData(modelData);
+            builder.setNBT("mtvehicles.oraxenItem", oraxenItem);
         }
 
         ItemStack vehicle = builder.toItemStack();
@@ -173,10 +177,9 @@ public class ItemUtils {
                 .setUnbreakable(true);
 
         if(oraxenItem != null) {
-            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
-            if(modelData != null) {
-                builder.setCustomModelData(modelData.getModelData());
-            }
+            int modelData = OraxenItems.getItemById(oraxenItem).build().getItemMeta().getCustomModelData();
+            builder.setCustomModelData(modelData);
+            builder.setNBT("mtvehicles.oraxenItem", oraxenItem);
         }
 
         ItemStack vehicle = builder.toItemStack();
