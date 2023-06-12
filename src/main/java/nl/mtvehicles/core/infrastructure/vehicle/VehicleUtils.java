@@ -58,13 +58,19 @@ public final class VehicleUtils {
         allowTicking(standSkin);
         standSkin.setVisible(false);
         standSkin.setCustomName("MTVEHICLES_SKIN_" + licensePlate);
-        standSkin.getEquipment().setHelmet(
-                ItemUtils.getVehicleItem(
-                        ItemUtils.getMaterial(ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.SKIN_ITEM).toString()),
-                        (int) ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.SKIN_DAMAGE),
-                        false,
-                        ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.NAME).toString(),
-                        licensePlate));
+        ItemStack item;
+
+        String oraxenItem = (String) ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.ORAXEN_ITEM);
+
+        item = ItemUtils.getVehicleItem(
+                ItemUtils.getMaterial(ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.SKIN_ITEM).toString()),
+                (int) ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.SKIN_DAMAGE),
+                false,
+                ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.NAME).toString(),
+                licensePlate,
+                oraxenItem);
+
+        standSkin.getEquipment().setHelmet(item);
 
         ArmorStand standMain = location.getWorld().spawn(location, ArmorStand.class);
         standMain.setVisible(false);
@@ -141,7 +147,10 @@ public final class VehicleUtils {
                         } else {
                             nbtVal = skin.get("nbtValue").toString();
                         }
-                        ItemStack is = ItemUtils.getVehicleItem(ItemUtils.getMaterial(skin.get("SkinItem").toString()), (int) skin.get("itemDamage"), ((String) skin.get("name")), "mtcustom", nbtVal);
+                        String oraxenItem = (String) skin.get("oraxenItem");
+
+                        ItemStack is = ItemUtils.getVehicleItem(ItemUtils.getMaterial(skin.get("SkinItem").toString()), (int) skin.get("itemDamage"), ((String) skin.get("name")), "mtcustom", nbtVal, oraxenItem);
+
                         NBTItem nbt = new NBTItem(is);
                         String licensePlate = nbt.getString("mtvehicles.kenteken");
                         matchedVehicles.add(configVehicle);
@@ -154,6 +163,7 @@ public final class VehicleUtils {
                         vehicle.setLicensePlate(licensePlate);
                         vehicle.setName((String) skin.get("name"));
                         vehicle.setVehicleType((String) configVehicle.get("vehicleType"));
+                        vehicle.setOraxenItem(oraxenItem);
                         vehicle.setSkinDamage((Integer) skin.get("itemDamage"));
                         vehicle.setSkinItem((String) skin.get("SkinItem"));
                         vehicle.setGlow(false);
@@ -247,7 +257,9 @@ public final class VehicleUtils {
                 if (skin.get("uuid") != null) {
                     if (skin.get("uuid").equals(carUUID)) {
                         if (skin.get("uuid") != null) {
-                            ItemStack is = ItemUtils.getVehicleItem(ItemUtils.getMaterial(skin.get("SkinItem").toString()), (int) skin.get("itemDamage"), ((String) skin.get("name")));
+                            String oraxenItem = (String) skin.get("oraxenItem");
+
+                            ItemStack is = ItemUtils.getVehicleItem(ItemUtils.getMaterial(skin.get("SkinItem").toString()), (int) skin.get("itemDamage"), ((String) skin.get("name")), oraxenItem);
                             matchedVehicles.add(configVehicle);
                             return is;
                         }
@@ -367,6 +379,7 @@ public final class VehicleUtils {
         vehicle.setSkinDamage((Integer) vehicleData.get("skinDamage"));
         vehicle.setSkinItem((String) vehicleData.get("skinItem"));
         vehicle.setGlow((Boolean) vehicleData.get("isGlow"));
+        vehicle.setOraxenItem((String) vehicleData.get("oraxenItem"));
         vehicle.setHornEnabled(ConfigModule.vehicleDataConfig.isHornSet(licensePlate) ? (boolean) vehicleData.get("hornEnabled") : ConfigModule.vehicleDataConfig.isHornEnabled(licensePlate));
         vehicle.setHealth(ConfigModule.vehicleDataConfig.isHealthSet(licensePlate) ? (double) vehicleData.get("health") : ConfigModule.vehicleDataConfig.getHealth(licensePlate));
         vehicle.setBenzineEnabled((Boolean) vehicleData.get("benzineEnabled"));

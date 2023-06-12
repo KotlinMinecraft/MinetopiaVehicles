@@ -1,5 +1,10 @@
 package nl.mtvehicles.core.infrastructure.utils;
 
+import com.google.common.collect.Lists;
+import io.th0rgal.oraxen.api.OraxenItems;
+import io.th0rgal.oraxen.items.ItemBuilder;
+import io.th0rgal.oraxen.items.ItemParser;
+import io.th0rgal.oraxen.items.ModelData;
 import nl.mtvehicles.core.Main;
 import nl.mtvehicles.core.infrastructure.annotations.VersionSpecific;
 import nl.mtvehicles.core.infrastructure.dataconfig.MessagesConfig;
@@ -72,67 +77,92 @@ public class ItemUtils {
     /**
      * Create a new vehicle item (used in "Choose vehicle menu" and #getCarItem(...)). Updated method (used to be #carItem2(...)).
      */
-    public static ItemStack getVehicleItem(@NotNull Material material, int durability, String name){
+    public static ItemStack getVehicleItem(@NotNull Material material, int durability, String name, @Nullable String oraxenItem){
         if (!material.isItem()) return null;
         String licensePlate = generateLicencePlate();
-        ItemStack vehicle = (new ItemFactory(material))
+        ItemFactory builder = (new ItemFactory(material))
                 .setDurability(durability)
                 .setName(TextUtils.colorize("&6" + name))
                 .setNBT("mtvehicles.kenteken", licensePlate)
                 .setNBT("mtvehicles.naam", name)
                 .setLore("&a", "&a" + licensePlate, "&a")
-                .setUnbreakable(true)
-                .toItemStack();
+                .setUnbreakable(true);
+
+        if(oraxenItem != null) {
+            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
+            if(modelData != null) {
+                builder.setCustomModelData(modelData.getModelData());
+            }
+        }
+
+        ItemStack vehicle = builder.toItemStack();
         return vehicle;
     }
 
     /**
      * Create a new vehicle item <b>with a custom NBT</b> (used in "Choose vehicle menu" and #getCarItem(...)). Updated method (used to be #carItem3(...)).
      */
-    public static ItemStack getVehicleItem(@NotNull Material material, int durability, String name, String nbtKey, @Nullable Object nbtValue){
+    public static ItemStack getVehicleItem(@NotNull Material material, int durability, String name, String nbtKey, @Nullable Object nbtValue, @Nullable String oraxenItem){
         if (!material.isItem()) return null;
         if (nbtValue == null){
-            return getVehicleItem(material, durability, name);
+            return getVehicleItem(material, durability, name, oraxenItem);
         }
+
         String licensePlate = generateLicencePlate();
-        ItemStack vehicle = (new ItemFactory(material))
+        ItemFactory builder = (new ItemFactory(material))
                 .setDurability(durability)
                 .setName(TextUtils.colorize("&6" + name))
                 .setNBT("mtvehicles.kenteken", licensePlate)
                 .setNBT("mtvehicles.naam", name)
                 .setNBT(nbtKey, nbtValue.toString())
                 .setLore("&a", "&a" + licensePlate, "&a")
-                .setUnbreakable(true)
-                .toItemStack();
+                .setUnbreakable(true);
+
+        if(oraxenItem != null) {
+            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
+            if(modelData != null) {
+                builder.setCustomModelData(modelData.getModelData());
+            }
+        }
+
+        ItemStack vehicle = builder.toItemStack();
         return vehicle;
     }
 
     /**
      * Restore a vehicle item with a known license plate (used in /vehicle restore and #spawnVehicle(...)). Updated method (used to be #carItem5(...)).
      */
-    public static ItemStack getVehicleItem(@NotNull Material material, int durability, boolean glowing, String name, String licensePlate){
+    public static ItemStack getVehicleItem(@NotNull Material material, int durability, boolean glowing, String name, String licensePlate, @Nullable String oraxenItem){
         if (!material.isItem()) return null;
-        ItemStack vehicle = (new ItemFactory(material))
+        ItemFactory builder = (new ItemFactory(material))
                 .setDurability(durability)
                 .setName(TextUtils.colorize("&6" + name))
                 .setGlowing(glowing)
                 .setNBT("mtvehicles.kenteken", licensePlate)
                 .setNBT("mtvehicles.naam", name)
                 .setLore("&a", "&a" + licensePlate, "&a")
-                .setUnbreakable(true)
-                .toItemStack();
+                .setUnbreakable(true);
+
+        if(oraxenItem != null) {
+            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
+            if(modelData != null) {
+                builder.setCustomModelData(modelData.getModelData());
+            }
+        }
+
+        ItemStack vehicle = builder.toItemStack();
         return vehicle;
     }
 
     /**
      * Restore a vehicle item with a known license plate and <b>a custom NBT</b> (used in /vehicle restore). Updated method (used to be #carItem4(...)).
      */
-    public static ItemStack getVehicleItem(@NotNull Material material, int durability, boolean glowing, String name, String licensePlate, String nbtKey, @Nullable Object nbtValue){
+    public static ItemStack getVehicleItem(@NotNull Material material, int durability, boolean glowing, String name, String licensePlate, String nbtKey, @Nullable Object nbtValue, @Nullable String oraxenItem){
         if (!material.isItem()) return null;
         if (nbtValue == null){
-            return getVehicleItem(material, durability, glowing, name, licensePlate);
+            return getVehicleItem(material, durability, glowing, name, licensePlate, oraxenItem);
         }
-        ItemStack vehicle = (new ItemFactory(material))
+        ItemFactory builder = (new ItemFactory(material))
                 .setDurability(durability)
                 .setName(TextUtils.colorize("&6" + name))
                 .setGlowing(glowing)
@@ -140,8 +170,16 @@ public class ItemUtils {
                 .setNBT("mtvehicles.naam", name)
                 .setNBT(nbtKey, nbtValue.toString())
                 .setLore("&a", "&a" + licensePlate, "&a")
-                .setUnbreakable(true)
-                .toItemStack();
+                .setUnbreakable(true);
+
+        if(oraxenItem != null) {
+            ModelData modelData = ItemParser.MODEL_DATAS_BY_ID.get(oraxenItem);
+            if(modelData != null) {
+                builder.setCustomModelData(modelData.getModelData());
+            }
+        }
+
+        ItemStack vehicle = builder.toItemStack();
         return vehicle;
     }
 

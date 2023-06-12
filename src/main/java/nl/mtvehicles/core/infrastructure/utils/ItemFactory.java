@@ -201,6 +201,14 @@ public class ItemFactory {
         return this;
     }
 
+    public ItemFactory setCustomModelData(int custoMmodelData) {
+        ItemMeta im = this.item.getItemMeta();
+        assert im != null;
+        im.setCustomModelData(custoMmodelData);
+        this.item.setItemMeta(im);
+        return this;
+    }
+
     public ItemFactory removeLoreLine(String line) {
         ItemMeta im = this.item.getItemMeta();
         List<String> lore = new ArrayList<>(im.getLore());

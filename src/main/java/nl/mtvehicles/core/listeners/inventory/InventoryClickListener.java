@@ -43,6 +43,7 @@ import static nl.mtvehicles.core.infrastructure.utils.MenuUtils.getCloseItem;
 public class InventoryClickListener extends MTVListener {
 
     public HashMap<UUID, ItemStack> vehicleMenu = new HashMap<>();
+    public HashMap<UUID, String> vehicleMenuConfigPath = new HashMap<>();
     public static HashMap<UUID, Inventory> skinMenu = new HashMap<>();
     public static HashMap<UUID, Integer> intSave = new HashMap<>();
 
@@ -169,6 +170,7 @@ public class InventoryClickListener extends MTVListener {
             NBTItem nbt = new NBTItem(vehicleMenu.get(player.getUniqueId()));
             String licensePlate = nbt.getString("mtvehicles.kenteken");
             String vehicleName = nbt.getString("mtvehicles.naam");
+            String oraxenItem = nbt.getString("mtvehicles.oraxenItem");
 
             Vehicle vehicle = new Vehicle();
             List<String> members = ConfigModule.vehicleDataConfig.getMembers(licensePlate);
@@ -193,6 +195,7 @@ public class InventoryClickListener extends MTVListener {
             vehicle.setVehicleType((String) vehicles.get(intSave.get(player.getUniqueId())).get("vehicleType"));
             vehicle.setSkinDamage(vehicleMenu.get(player.getUniqueId()).getDurability());
             vehicle.setSkinItem(vehicleMenu.get(player.getUniqueId()).getType().toString());
+            vehicle.setOraxenItem(oraxenItem);
             vehicle.setGlow(false);
             vehicle.setHornEnabled((Boolean) vehicles.get(intSave.get(player.getUniqueId())).get("hornEnabled"));
             vehicle.setHealth((double) vehicles.get(intSave.get(player.getUniqueId())).get("maxHealth"));

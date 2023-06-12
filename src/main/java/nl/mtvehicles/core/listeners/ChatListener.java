@@ -67,7 +67,8 @@ public class ChatListener extends MTVListener {
                         ConfigModule.vehicleDataConfig.getDamage(licensePlate),
                         (boolean) ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.IS_GLOWING),
                         ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.NAME).toString(),
-                        message)
+                        message,
+                        (String) ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.ORAXEN_ITEM))
                 );
 
                 if (event.isAsynchronous())
@@ -118,7 +119,8 @@ public class ChatListener extends MTVListener {
                         ConfigModule.vehicleDataConfig.getDamage(licensePlate),
                         (boolean) ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.IS_GLOWING),
                         message,
-                        licensePlate)
+                        licensePlate,
+                        (String) ConfigModule.vehicleDataConfig.get(licensePlate, VehicleDataConfig.Option.ORAXEN_ITEM))
                 );
                 ConfigModule.messagesConfig.sendMessage(player, Message.ACTION_SUCCESSFUL);
                 ItemUtils.edit.put(player.getUniqueId() + ".naam", false);

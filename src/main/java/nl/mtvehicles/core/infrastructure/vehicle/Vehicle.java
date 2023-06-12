@@ -25,6 +25,7 @@ public class Vehicle {
     private VehicleType vehicleType;
     private int skinDamage;
     private String skinItem;
+    private String oraxenItem;
     private boolean isGlow;
     private boolean benzineEnabled;
     private double fuel;
@@ -63,6 +64,7 @@ public class Vehicle {
         map.put(VehicleDataConfig.Option.VEHICLE_TYPE.getPath(), this.getVehicleType().toString());
         map.put(VehicleDataConfig.Option.SKIN_DAMAGE.getPath(), this.getSkinDamage());
         map.put(VehicleDataConfig.Option.SKIN_ITEM.getPath(), this.getSkinItem());
+        map.put(VehicleDataConfig.Option.ORAXEN_ITEM.getPath(), this.getOraxenItem());
         map.put(VehicleDataConfig.Option.IS_OPEN.getPath(), this.isOpen());
         map.put(VehicleDataConfig.Option.IS_GLOWING.getPath(), this.isGlow());
         map.put(VehicleDataConfig.Option.FUEL_ENABLED.getPath(), this.isFuelEnabled());
@@ -373,6 +375,14 @@ public class Vehicle {
 
     public void setVehicleData(Map<?, ?> vehicleData) {
         this.vehicleData = vehicleData;
+    }
+
+    public void setOraxenItem(String oraxenItem) {
+        this.oraxenItem = oraxenItem;
+    }
+
+    public String getOraxenItem() {
+        return oraxenItem;
     }
 
     public boolean canRide(Player player) {

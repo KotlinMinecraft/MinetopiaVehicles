@@ -3,3 +3,5 @@ target/
 .bloop
 .metals
 .vscode
+pack/
+migrate-to-oraxen.main.kts

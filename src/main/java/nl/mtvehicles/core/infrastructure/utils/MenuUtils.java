@@ -245,11 +245,12 @@ public class MenuUtils {
         for (int i = 1 + page * 36 - 36; i <= page * 36; i++) {
             if (i - 1 < dataVehicle.size()) {
                 Map<?, ?> vehicle = dataVehicle.get(i-1);
+                String oraxenItem = (String) vehicle.get("oraxenItem");
                 if (vehicle.get("nbtValue") == null) {
-                    inv.addItem(ItemUtils.getVehicleItem(ItemUtils.getMaterial(vehicle.get("SkinItem").toString()), (int) vehicle.get("itemDamage"), vehicle.get("name").toString()));
+                    inv.addItem(ItemUtils.getVehicleItem(ItemUtils.getMaterial(vehicle.get("SkinItem").toString()), (int) vehicle.get("itemDamage"), vehicle.get("name").toString(), oraxenItem));
                     continue;
                 }
-                inv.addItem(ItemUtils.getVehicleItem(ItemUtils.getMaterial(vehicle.get("SkinItem").toString()), (int) vehicle.get("itemDamage"), vehicle.get("name").toString(), vehicle.get("nbtKey").toString(), vehicle.get("nbtValue")));
+                inv.addItem(ItemUtils.getVehicleItem(ItemUtils.getMaterial(vehicle.get("SkinItem").toString()), (int) vehicle.get("itemDamage"), vehicle.get("name").toString(), vehicle.get("nbtKey").toString(), vehicle.get("nbtValue"), oraxenItem));
             }
         }
 
@@ -291,7 +292,8 @@ public class MenuUtils {
                                     data.getDamage(license),
                                     isGlowing,
                                     data.get(license, VehicleDataConfig.Option.NAME).toString(),
-                                    license));
+                                    license,
+                                    (String) data.get(license, VehicleDataConfig.Option.ORAXEN_ITEM)));
                             continue;
                         }
                         inv.addItem(ItemUtils.getVehicleItem(ItemUtils.getMaterial(
@@ -301,7 +303,8 @@ public class MenuUtils {
                                 data.get(license, VehicleDataConfig.Option.NAME).toString(),
                                 license,
                                 "mtcustom",
-                                data.get(license, VehicleDataConfig.Option.NBT_VALUE)));
+                                data.get(license, VehicleDataConfig.Option.NBT_VALUE),
+                                (String) data.get(license, VehicleDataConfig.Option.ORAXEN_ITEM)));
                     }
                 }
             }
